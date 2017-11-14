@@ -1,0 +1,10 @@
+version: '2'
+
+services:
+
+  fitbit_googlefit:
+    container_name: fitbit_googlefit
+    image: puzza007/fitbit_googlefit:latest
+    restart: always
+    volumes:
+      - ./config:/config
