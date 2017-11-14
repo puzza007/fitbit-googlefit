@@ -46,9 +46,8 @@ You have to register your own Fitbit and Google Fit applications. This setup is 
 -------------------
 This is a python3 application so install all the dependencies 
 
-- Create virtualenv ```virtualenv fitbitenv```
-- Activate env ```source fitbitenv/bin/activate``` 
-- Install dependencies using ```pip3 install -r requirements.txt```
+- Create virtualenv and install dependencies ```pipenv install```
+- Activate env ```pipenv shell```
 
 
 2. Fitbit setup
