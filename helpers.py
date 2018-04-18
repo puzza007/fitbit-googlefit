@@ -28,6 +28,7 @@ class Helper(object):
         logging.debug("Creating Fitbit client")
         credentials = json.load(open(self.fitbitCredsFile))
         client = fitbit.Fitbit(**credentials)
+        client.API_VERSION = 1.2
         logging.debug("Fitbit client created")
         return client
 

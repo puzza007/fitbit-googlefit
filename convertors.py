@@ -196,23 +196,25 @@ class Convertor:
         date -- date to which the data_point belongs to in "yyyy-mm-dd" format
         data_point -- a single Fitbit intraday step data point
         """
-        timestamp = "{} {}".format(date, data_point['dateTime'])
-        epoch_time_nanos = self.nano(self.EpochOfFitbitTimestamp(timestamp))
+        epoch_time_nanos = self.nano(self.EpochOfFitbitTimestamp(data_point['dateTime']))
+        end_time_nanos = epoch_time_nanos + self.nano(data_point["seconds"] * 1000)
 
         # Convert sleep data point to google fit sleep types
-        if data_point['value'] == 1:
-            sleepType = 72
-        elif data_point['value'] == 2:
+        if data_point['level'] == "light":
             sleepType = 109
-        elif data_point['value'] == 3:
+        elif data_point['level'] == "deep":
+            sleepType = 110
+        elif data_point['level'] == "rem":
+            sleepType = 111
+        elif data_point['level'] in ("awake", "wake"):
             sleepType = 112
         else:
             sleepType = 72
-
+        print("sleepType: {}".format(sleepType))
         return dict(
             dataTypeName='com.google.activity.segment',
             startTimeNanos=epoch_time_nanos,
-            endTimeNanos=epoch_time_nanos + 60000000000,
+            endTimeNanos=end_time_nanos,
             value=[dict(intVal=sleepType)]
         )
 
